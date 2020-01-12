@@ -1,34 +1,62 @@
 #include "ring_buffer.h"
 
-
+/**
+ * @brief 
+ * 
+ * @param c 
+ * @param data 
+ * @return int 
+ */
 int circ_buf_push(circ_buf_st *c, uint8_t data)
 {
     int next;
 
-    next = c->head + 1;  // next is where head will point to after this write.
+    next = c->head + 1; 
     if (next >= c->max_size)
         next = 0;
 
-    if (next == c->tail)  // if the head + 1 == tail, circular buffer is full
+    if (next == c->tail)
         return -1;
 
-    c->buffer[c->head] = data;  // Load data and then move
-    c->head = next;             // head to next data offset.
-    return 0;  // return success to indicate successful push.
+    c->buffer[c->head] = data;
+    c->head = next;
+    return 0;
 }
 
+
+/**
+ * @brief Pop BUffer
+ * 
+ * @param c 
+ * @param data 
+ * @return int 
+ */
 int circ_buf_pop(circ_buf_st *c, uint8_t *data)
 {
     int next;
 
-    if (c->head == c->tail)  // if the head == tail, we don't have any data
+    if (c->head == c->tail)
         return -1;
 
-    next = c->tail + 1;  // next is where tail will point to after this read.
+    next = c->tail + 1;
     if(next >= c->max_size)
         next = 0;
 
-    *data = c->buffer[c->tail];  // Read data and then move
-    c->tail = next;              // tail to next offset.
-    return 0;  // return success to indicate successful push.
+    *data = c->buffer[c->tail];
+    c->tail = next;
+    return 0;
+}
+
+/**
+ * @brief Clear ring buffer
+ * 
+ * @param c 
+ * @return int 
+ */
+int circ_buf_clear(circ_buf_st *c)
+{
+    c->head = 0;
+    c->tail = 0;
+
+    return 0;
 }
