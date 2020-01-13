@@ -75,7 +75,46 @@ int ring_buf_pop(ring_handle_buf_t st_ring_buf, type_data *data)
  */
 int ring_buf_flush(ring_handle_buf_t st_ring_buf)
 {
+    assert(st_ring_buf);
+
     st_ring_buf->tail = 0;
     st_ring_buf->head = 0;
     return 0;
+}
+
+/**
+ * @brief Free Buffer 
+ * 
+ * @param st_ring_buf 
+ * @return int 
+ */
+int ring_buf_free(ring_handle_buf_t st_ring_buf)
+{
+    assert(st_ring_buf);
+    free(st_ring_buf);
+    return 0;
+}
+
+/**
+ * @brief Read buffer size
+ * 
+ * @param st_ring_buf 
+ * @return size_t 
+ */
+size_t ring_buf_size(ring_handle_buf_t st_ring_buf)
+{
+    size_t size = 0;
+
+    assert(st_ring_buf);
+
+    if(st_ring_buf->head >= st_ring_buf->tail)
+    {
+        size = st_ring_buf->head >= st_ring_buf->tail;
+    }
+    else
+    {
+        size = (st_ring_buf->buffer_size + st_ring_buf->head) - st_ring_buf->tail;
+    }
+    
+    return size;
 }
