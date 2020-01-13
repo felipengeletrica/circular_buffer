@@ -11,23 +11,26 @@
 extern "C" {
 #endif
 
+/* DEFINES */
+typedef float type_data;
+
 /* STRUCTS */
 typedef struct {
-    uint8_t * buffer;
+    type_data * buffer;
     size_t head;
     size_t tail;
     size_t buffer_size;
 } ring_buf_st;
 
-// Handle type, the way users interact with the API
+/* VARIABLES */
 typedef ring_buf_st* ring_handle_buf_t;
 
 /* PROTOTYPES */
-ring_handle_buf_t ring_buf_init(uint8_t* buffer, size_t size);
-int ring_buf_push(ring_handle_buf_t st_ring_buf, uint8_t data);
-int ring_buf_pop(ring_handle_buf_t st_ring_buf, uint8_t *data);
+ring_handle_buf_t ring_buf_init(type_data* buffer, size_t size);
+int ring_buf_push(ring_handle_buf_t st_ring_buf, type_data data);
+int ring_buf_pop(ring_handle_buf_t st_ring_buf, type_data *data);
 int ring_buf_reset(ring_handle_buf_t st_ring_buf);
-int ring_buf_free(ring_handle_buf_t st_ring_buf);
+int ring_buf_flush(ring_handle_buf_t st_ring_buf);
 
 #ifdef __cplusplus
 }

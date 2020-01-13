@@ -1,7 +1,7 @@
 #include "ring_buffer.h"
 
 
-ring_handle_buf_t ring_buf_init(uint8_t* buffer, size_t size)
+ring_handle_buf_t ring_buf_init(type_data* buffer, size_t size)
 {
     assert(buffer && size);
 
@@ -16,7 +16,7 @@ ring_handle_buf_t ring_buf_init(uint8_t* buffer, size_t size)
 }
 
 
-int ring_buf_push(ring_handle_buf_t st_ring_buf, uint8_t data)
+int ring_buf_push(ring_handle_buf_t st_ring_buf, type_data data)
 {
     int next;
 
@@ -33,7 +33,7 @@ int ring_buf_push(ring_handle_buf_t st_ring_buf, uint8_t data)
 }
 
 
-int ring_buf_pop(ring_handle_buf_t st_ring_buf, uint8_t *data)
+int ring_buf_pop(ring_handle_buf_t st_ring_buf, type_data *data)
 {
     int next;
 
