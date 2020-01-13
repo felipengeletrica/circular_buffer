@@ -12,7 +12,8 @@ extern "C" {
 #endif
 
 /* DEFINES */
-typedef float type_data;
+/* Flexible buffer data type */
+typedef uint_fast16_t type_data;
 
 /* STRUCTS */
 typedef struct {
@@ -29,7 +30,6 @@ typedef ring_buf_st* ring_handle_buf_t;
 ring_handle_buf_t ring_buf_init(type_data* buffer, size_t size);
 int ring_buf_push(ring_handle_buf_t st_ring_buf, type_data data);
 int ring_buf_pop(ring_handle_buf_t st_ring_buf, type_data *data);
-int ring_buf_reset(ring_handle_buf_t st_ring_buf);
 int ring_buf_flush(ring_handle_buf_t st_ring_buf);
 
 #ifdef __cplusplus

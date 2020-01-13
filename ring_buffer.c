@@ -48,3 +48,10 @@ int ring_buf_pop(ring_handle_buf_t st_ring_buf, type_data *data)
     st_ring_buf->tail = next;
     return 0;
 }
+
+int ring_buf_flush(ring_handle_buf_t st_ring_buf)
+{
+    st_ring_buf->tail = 0;
+    st_ring_buf->head = 0;
+    return 0;
+}
