@@ -10,15 +10,23 @@
 int main()
 {
     int cont = 0;
+    type_data data = 0;
     printf("Tests Circular buffer\n\r");
 
-    uint8_t * buffer  = malloc(BUFFER_SIZE * sizeof(uint8_t));
+    type_data * buffer  = malloc(BUFFER_SIZE * sizeof(type_data));
     ring_handle_buf_t cbuf = ring_buf_init(buffer, BUFFER_SIZE);
 
     for(cont = 0; cont < BUFFER_SIZE; cont++)
     {
-        ring_buf_push(cbuf, 0xff);
-        printf("cont: %d", cont);
+        ring_buf_push(cbuf, cont & 0xff);
+        printf("cont: %d Value: %f \n\r", cont, cont & 0xff);
+    }
+
+
+    for(cont = 0; cont < BUFFER_SIZE; cont++)
+    {
+        ring_buf_pop(cbuf, &data);
+        printf("cont: %d Values: %f \n\r", cont, data);
     }
 
     return 0;
