@@ -2,7 +2,10 @@
 #define BUFFER_H
 
 /* INCLUDES */
+#include <stdio.h>
+#include <stdlib.h>
 #include <stdint.h>
+#include <assert.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -10,15 +13,21 @@ extern "C" {
 
 /* STRUCTS */
 typedef struct {
-    uint8_t * const buffer;
-    int head;
-    int tail;
-    const int max_size;
-} circ_buf_st;
+    uint8_t * buffer;
+    size_t head;
+    size_t tail;
+    size_t buffer_size;
+} ring_buf_st;
+
+// Handle type, the way users interact with the API
+typedef ring_buf_st* ring_handle_buf_t;
 
 /* PROTOTYPES */
-int circ_buf_push(circ_buf_st *c, uint8_t data);
-int circ_buf_pop(circ_buf_st *c, uint8_t *data);
+ring_handle_buf_t ring_buf_init(uint8_t* buffer, size_t size);
+int ring_buf_push(ring_handle_buf_t st_ring_buf, uint8_t data);
+int ring_buf_pop(ring_handle_buf_t st_ring_buf, uint8_t *data);
+int ring_buf_reset(ring_handle_buf_t st_ring_buf);
+int ring_buf_free(ring_handle_buf_t st_ring_buf);
 
 #ifdef __cplusplus
 }

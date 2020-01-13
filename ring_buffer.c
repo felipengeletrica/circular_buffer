@@ -1,62 +1,50 @@
 #include "ring_buffer.h"
 
-/**
- * @brief 
- * 
- * @param c 
- * @param data 
- * @return int 
- */
-int circ_buf_push(circ_buf_st *c, uint8_t data)
+
+ring_handle_buf_t ring_buf_init(uint8_t* buffer, size_t size)
+{
+    assert(buffer && size);
+
+    ring_handle_buf_t ring_buf = malloc(sizeof(ring_buf_st));
+
+    assert(ring_buf);
+
+	ring_buf->buffer = buffer;
+	ring_buf->buffer_size = size;
+	
+	return ring_buf;
+}
+
+
+int ring_buf_push(ring_handle_buf_t st_ring_buf, uint8_t data)
 {
     int next;
 
-    next = c->head + 1; 
-    if (next >= c->max_size)
+    next = st_ring_buf->head + 1; 
+    if (next >= st_ring_buf->buffer_size)
         next = 0;
 
-    if (next == c->tail)
+    if (next == st_ring_buf->tail)
         return -1;
 
-    c->buffer[c->head] = data;
-    c->head = next;
+    st_ring_buf->buffer[st_ring_buf->head] = data;
+    st_ring_buf->head = next;
     return 0;
 }
 
 
-/**
- * @brief Pop BUffer
- * 
- * @param c 
- * @param data 
- * @return int 
- */
-int circ_buf_pop(circ_buf_st *c, uint8_t *data)
+int ring_buf_pop(ring_handle_buf_t st_ring_buf, uint8_t *data)
 {
     int next;
 
-    if (c->head == c->tail)
+    if (st_ring_buf->head == st_ring_buf->tail)
         return -1;
 
-    next = c->tail + 1;
-    if(next >= c->max_size)
+    next = st_ring_buf->tail + 1;
+    if(next >= st_ring_buf->buffer_size)
         next = 0;
 
-    *data = c->buffer[c->tail];
-    c->tail = next;
-    return 0;
-}
-
-/**
- * @brief Clear ring buffer
- * 
- * @param c 
- * @return int 
- */
-int circ_buf_clear(circ_buf_st *c)
-{
-    c->head = 0;
-    c->tail = 0;
-
+    *data = st_ring_buf->buffer[st_ring_buf->tail];
+    st_ring_buf->tail = next;
     return 0;
 }
