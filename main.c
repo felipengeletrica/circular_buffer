@@ -18,15 +18,15 @@ int main()
 
     for(cont = 0; cont < BUFFER_SIZE; cont++)
     {
-        ring_buf_push(cbuf, cont & 0xff);
-        printf("cont: %d Value: %f \n\r", cont, cont & 0xff);
+        ring_buf_push(cbuf, (type_data ) (cont));
+        printf("cont: %d Value: %d \n\r", cont, (type_data ) (cont));
     }
 
 
     for(cont = 0; cont < BUFFER_SIZE; cont++)
     {
         ring_buf_pop(cbuf, &data);
-        printf("cont: %d Values: %f \n\r", cont, data);
+        printf("cont: %d Values: %d \n\r", cont, data);
     }
 
     return 0;

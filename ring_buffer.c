@@ -1,6 +1,12 @@
 #include "ring_buffer.h"
 
-
+/**
+ * @brief Init Ring Buffer
+ * 
+ * @param buffer 
+ * @param size 
+ * @return ring_handle_buf_t 
+ */
 ring_handle_buf_t ring_buf_init(type_data* buffer, size_t size)
 {
     assert(buffer && size);
@@ -15,7 +21,13 @@ ring_handle_buf_t ring_buf_init(type_data* buffer, size_t size)
 	return ring_buf;
 }
 
-
+/**
+ * @brief Push data
+ * 
+ * @param st_ring_buf 
+ * @param data 
+ * @return int 
+ */
 int ring_buf_push(ring_handle_buf_t st_ring_buf, type_data data)
 {
     int next;
@@ -32,7 +44,13 @@ int ring_buf_push(ring_handle_buf_t st_ring_buf, type_data data)
     return 0;
 }
 
-
+/**
+ * @brief Pop data 
+ * 
+ * @param st_ring_buf 
+ * @param data 
+ * @return int 
+ */
 int ring_buf_pop(ring_handle_buf_t st_ring_buf, type_data *data)
 {
     int next;
@@ -46,5 +64,18 @@ int ring_buf_pop(ring_handle_buf_t st_ring_buf, type_data *data)
 
     *data = st_ring_buf->buffer[st_ring_buf->tail];
     st_ring_buf->tail = next;
+    return 0;
+}
+
+/**
+ * @brief flush buffer
+ * 
+ * @param st_ring_buf 
+ * @return int 
+ */
+int ring_buf_flush(ring_handle_buf_t st_ring_buf)
+{
+    st_ring_buf->tail = 0;
+    st_ring_buf->head = 0;
     return 0;
 }
