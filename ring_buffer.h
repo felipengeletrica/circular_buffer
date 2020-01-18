@@ -1,5 +1,5 @@
 #ifndef RING_BUFFER_H
-#define BUFFER_H
+#define RING_BUFFER_H
 
 /* INCLUDES */
 #include <stdio.h>
