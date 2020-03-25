@@ -2,6 +2,7 @@ TARGET = main
 LIBS = -lm
 CC = gcc
 CFLAGS = -g -Wall
+LDFLAGS = 
 
 .PHONY: default all clean
 
