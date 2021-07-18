@@ -33,9 +33,6 @@ int ring_buf_push(ring_handle_buf_t st_ring_buf, type_data data)
     if (next > st_ring_buf->buffer_size)
         next = 0;
 
-    if (next == st_ring_buf->tail)
-        return -1;
-
     st_ring_buf->buffer[st_ring_buf->head] = data;
     st_ring_buf->head = next;
     return 0;
@@ -51,9 +48,6 @@ int ring_buf_push(ring_handle_buf_t st_ring_buf, type_data data)
 int ring_buf_pop(ring_handle_buf_t st_ring_buf, type_data *data)
 {
     int next = 0;
-
-    if (st_ring_buf->head == st_ring_buf->tail)
-        return -1;
 
     next = st_ring_buf->tail + 1;
     if(next > st_ring_buf->buffer_size)
