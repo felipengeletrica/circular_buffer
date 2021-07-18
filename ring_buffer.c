@@ -31,7 +31,6 @@ int ring_buf_push(ring_handle_buf_t st_ring_buf, void * data)
     int next = 0;
 
     next = st_ring_buf->head + 1;
-    printf("next %d head %I64d\n", next, st_ring_buf->head);
     if (next > st_ring_buf->buffer_size)
         next = 0;
 
@@ -54,6 +53,7 @@ int ring_buf_pop(ring_handle_buf_t st_ring_buf, void **data)
 {
     int next = 0;
 
+    printf("\n\rPOP INDEX: %ld DATA: %ld\n\r", st_ring_buf->tail, (int)st_ring_buf->buffer[st_ring_buf->tail]);
     if (st_ring_buf->head == st_ring_buf->tail)
         return -1;
 
