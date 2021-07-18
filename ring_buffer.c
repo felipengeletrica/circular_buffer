@@ -7,14 +7,15 @@
  * @param size 
  * @return ring_handle_buf_t 
  */
-ring_handle_buf_t ring_buf_init(void* buffer, size_t size)
+ring_handle_buf_t ring_buf_init(size_t size)
 {
     /* Allocation */
     ring_handle_buf_t ring_buf = malloc(sizeof(ring_buf_st));
 
-	ring_buf->buffer = buffer;
+	ring_buf->buffer = malloc(size * sizeof(void*));
 	ring_buf->buffer_size = size;
-	
+    ring_buf->head = 0;
+    ring_buf->tail = 0;
 	return ring_buf;
 }
 
@@ -29,14 +30,15 @@ int ring_buf_push(ring_handle_buf_t st_ring_buf, void * data)
 {
     int next = 0;
 
-    next = st_ring_buf->head + 1; 
+    next = st_ring_buf->head + 1;
+    printf("next %d head %I64d\n", next, st_ring_buf->head);
     if (next > st_ring_buf->buffer_size)
         next = 0;
 
     if (next == st_ring_buf->tail)
         return -1;
 
-    st_ring_buf->buffer[st_ring_buf->head] = &data;
+    st_ring_buf->buffer[st_ring_buf->head] = data;
     st_ring_buf->head = next;
     return 0;
 }
@@ -48,7 +50,7 @@ int ring_buf_push(ring_handle_buf_t st_ring_buf, void * data)
  * @param data 
  * @return int 
  */
-int ring_buf_pop(ring_handle_buf_t st_ring_buf, void *data)
+int ring_buf_pop(ring_handle_buf_t st_ring_buf, void **data)
 {
     int next = 0;
 

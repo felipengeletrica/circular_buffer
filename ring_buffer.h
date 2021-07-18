@@ -17,7 +17,7 @@ extern "C" {
 
 /* STRUCTS */
 typedef struct {
-    void * buffer;
+    void ** buffer;
     size_t head;
     size_t tail;
     size_t buffer_size;
@@ -27,9 +27,9 @@ typedef struct {
 typedef ring_buf_st* ring_handle_buf_t;
 
 /* PROTOTYPES */
-ring_handle_buf_t ring_buf_init(void* buffer, size_t size);
+ring_handle_buf_t ring_buf_init(size_t size);
 int ring_buf_push(ring_handle_buf_t st_ring_buf, void *data);
-int ring_buf_pop(ring_handle_buf_t st_ring_buf, void *data);
+int ring_buf_pop(ring_handle_buf_t st_ring_buf, void **data);
 int ring_buf_flush(ring_handle_buf_t st_ring_buf);
 int ring_buf_free(ring_handle_buf_t st_ring_buf);
 size_t ring_buf_size(ring_handle_buf_t st_ring_buf);
