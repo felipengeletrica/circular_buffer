@@ -21,7 +21,7 @@ int main()
     printf("Tests Circular buffer\n\r");
 
     /* Push data in buffer */
-    for(cont = 0; cont < 600; cont++)
+    for(cont = 0; cont < BUFFER_SIZE; cont++)
     {
         values_st[cont].status = cont;
         ring_buf_push(cbuf, (void *) &values_st[cont]);
