@@ -11,8 +11,14 @@
 extern "C" {
 #endif
 
+/* STRUCT DATA */
+typedef struct {
+  int status;
+} st_values;
+
 /* DEFINES */
 /* Flexible buffer data type */
+// typedef st_values type_data;
 typedef uint_fast16_t type_data;
 
 /* STRUCTS */
