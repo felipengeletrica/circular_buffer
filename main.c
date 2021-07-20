@@ -16,7 +16,7 @@ int main()
     type_data * buffer  = malloc(BUFFER_SIZE * sizeof(type_data));
     ring_handle_buf_t cbuf = ring_buf_init(buffer, BUFFER_SIZE);
 
-    for(cont = 0; cont < BUFFER_SIZE; cont++)
+    for(cont = 0; cont < 600; cont++)
     {
         ring_buf_push(cbuf, (type_data ) (cont));
         printf("cont: %d Value: %d \n\r", cont, (type_data ) (cont));

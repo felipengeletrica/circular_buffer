@@ -48,10 +48,15 @@ int ring_buf_push(ring_handle_buf_t st_ring_buf, type_data data)
 int ring_buf_pop(ring_handle_buf_t st_ring_buf, type_data *data)
 {
     int next = 0;
+    size_t len_buffer = 0;
 
     next = st_ring_buf->tail + 1;
     if(next > st_ring_buf->buffer_size)
         next = 0;
+
+    len_buffer = ring_buf_size(st_ring_buf);
+    if (len_buffer == 0)
+        return -1;
 
     *data = st_ring_buf->buffer[st_ring_buf->tail];
     st_ring_buf->tail = next;
