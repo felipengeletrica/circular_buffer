@@ -102,7 +102,7 @@ size_t ring_buf_size(ring_handle_buf_t st_ring_buf)
 
     if(st_ring_buf->head >= st_ring_buf->tail)
     {
-        size = st_ring_buf->head >= st_ring_buf->tail;
+        size = st_ring_buf->head - st_ring_buf->tail;
     }
     else
     {
